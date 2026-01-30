@@ -1,0 +1,6 @@
+- Name: AxiomeQoL
+  Version: 0.1.0
+  DLL: bin/AxiomeQoL.dll
+  Dependencies:
+    - Name: EverestCore
+      Version: 1.5935.0
