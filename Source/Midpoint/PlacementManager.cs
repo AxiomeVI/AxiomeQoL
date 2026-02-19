@@ -2,9 +2,9 @@ using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using Monocle;
 
-namespace Celeste.Mod.AxiomeToolbox.Midpoint {
+namespace Celeste.Mod.AxiomeToolbox.Checkpoint {
 
-    public static class MidpointPlacementManager {
+    public static class CheckpointPlacementManager {
 
         private static readonly Dictionary<string, List<Vector2>> placements = [];
 
@@ -23,16 +23,16 @@ namespace Celeste.Mod.AxiomeToolbox.Midpoint {
         public static void Update(Level level) {
             var settings = AxiomeToolboxModule.Instance._Settings as AxiomeToolboxModuleSettings;
             
-            if (settings?.PlaceMidpoint.Pressed ?? false) {
-                PlaceMidpointAtPlayer(level);
+            if (settings?.PlaceCheckpoint.Pressed ?? false) {
+                PlaceCheckpointAtPlayer(level);
             }
 
-            if (settings?.ClearMidpoints.Pressed ?? false) {
-                ClearRoomMidpoints(level);
+            if (settings?.ClearCheckpoints.Pressed ?? false) {
+                ClearRoomCheckpoints(level);
             }
         }
 
-        private static void PlaceMidpointAtPlayer(Level level) {
+        private static void PlaceCheckpointAtPlayer(Level level) {
             Player player = level.Tracker.GetEntity<Player>();
             if (player == null) return;
 
@@ -44,19 +44,19 @@ namespace Celeste.Mod.AxiomeToolbox.Midpoint {
             placements[roomID].Add(pos);
 
             var settings = AxiomeToolboxModule.Instance._Settings as AxiomeToolboxModuleSettings;
-            Color color = Calc.HexToColor(settings?.MidpointColor ?? "00FFFF");
-            level.Add(new MidpointTrigger(pos, color));
+            Color color = Calc.HexToColor(settings?.CheckpointColor ?? "00FFFF");
+            level.Add(new CheckpointTrigger(pos, color));
 
             Audio.Play("event:/game/general/strawberry_blue_touch");
         }
 
-        private static void ClearRoomMidpoints(Level level) {
+        private static void ClearRoomCheckpoints(Level level) {
             string roomID = GetRoomID(level);
 
             placements.Remove(roomID);
 
-            foreach (var midpoint in level.Tracker.GetEntities<MidpointTrigger>()) {
-                midpoint.RemoveSelf();
+            foreach (var checkpoint in level.Tracker.GetEntities<CheckpointTrigger>()) {
+                checkpoint.RemoveSelf();
             }
 
             Audio.Play("event:/ui/main/button_back");
@@ -68,10 +68,10 @@ namespace Celeste.Mod.AxiomeToolbox.Midpoint {
             string roomID = GetRoomID(self);
             if (placements.TryGetValue(roomID, out var positions)) {
                 var settings = AxiomeToolboxModule.Instance._Settings as AxiomeToolboxModuleSettings;
-                Color color = Calc.HexToColor(settings?.MidpointColor ?? "00FFFF");
+                Color color = Calc.HexToColor(settings?.CheckpointColor ?? "00FFFF");
 
                 foreach (var pos in positions) {
-                    self.Add(new MidpointTrigger(pos, color));
+                    self.Add(new CheckpointTrigger(pos, color));
                 }
             }
         }

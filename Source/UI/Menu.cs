@@ -1,4 +1,4 @@
-using Celeste.Mod.AxiomeToolbox.Midpoint;
+using Celeste.Mod.AxiomeToolbox.Checkpoint;
 using Monocle;
 
 namespace Celeste.Mod.AxiomeToolbox.Menu;
@@ -26,7 +26,7 @@ public static class ModMenuOptions {
                 _settings.Enabled = value;
                 _stopTimerWhenPaused.Visible = value;
                 if (!value) {
-                    MidpointPlacementManager.ClearAll();
+                    CheckpointPlacementManager.ClearAll();
                     if (_settings.StopTimerWhenPaused && Engine.Scene is Level level) {
                         level.TimerStopped = false;
                     }

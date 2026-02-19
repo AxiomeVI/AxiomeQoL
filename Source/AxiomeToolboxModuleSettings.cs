@@ -9,13 +9,13 @@ public class AxiomeToolboxModuleSettings : EverestModuleSettings {
 
     [SettingName(DialogIds.PlaceMidPointId)]
     [DefaultButtonBinding(0, Keys.None)]
-    public ButtonBinding PlaceMidpoint { get; set; }
+    public ButtonBinding PlaceCheckpoint { get; set; }
 
-    [SettingName(DialogIds.ClearMidpointId)]
+    [SettingName(DialogIds.ClearCheckpointId)]
     [DefaultButtonBinding(0, Keys.None)]
-    public ButtonBinding ClearMidpoints { get; set; }
+    public ButtonBinding ClearCheckpoints { get; set; }
 
-    [SettingName("Midpoint Color")]
-    [SettingSubText("Color of the in-game midpoint beam")]
-    public string MidpointColor { get; set; } = "00FFFF";  // Cyan
+    [SettingName("Checkpoint Color")]
+    [SettingSubText("Color of the in-game checkpoint beam")]
+    public string CheckpointColor { get; set; } = "00FFFF";  // Cyan
 }

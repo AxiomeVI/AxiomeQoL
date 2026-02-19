@@ -2,10 +2,10 @@ using Microsoft.Xna.Framework;
 using Monocle;
 using Celeste.Mod.SpeedrunTool.RoomTimer;
 
-namespace Celeste.Mod.AxiomeToolbox.Midpoint;
+namespace Celeste.Mod.AxiomeToolbox.Checkpoint;
 
 [Tracked]
-public class MidpointTrigger : Entity {
+public class CheckpointTrigger : Entity {
 
     private readonly Color beamColor;
     private bool triggered = false;
@@ -14,7 +14,7 @@ public class MidpointTrigger : Entity {
     private const float Width = 11f;
     private const float Height = 17f;
 
-    public MidpointTrigger(Vector2 position, Color color) : base(position) {
+    public CheckpointTrigger(Vector2 position, Color color) : base(position) {
         beamColor = color;
 
         Collider = new Hitbox(Width, Height, -Width / 2f, -Height / 2f);
