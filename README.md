@@ -5,5 +5,6 @@ A Celeste mod adding features primarily intended for speedrun practice and labbi
 
 Testing movement and strat alternatives often requires frame advance and pause buffering, but the timer running during pause causes timing inaccuracies. This option halts the timer while the game is paused, ensuring accurate timing.
 
+## Midpoint
 
-More features may be added later
+Similar to srt endpoint but doesn't stop the timer. They count as a room in regards to srt room count.

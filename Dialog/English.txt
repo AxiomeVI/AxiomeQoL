@@ -1,3 +1,7 @@
 # ============================== Mod Menu ======================================
-AXIOME_QOL=                                  Axiome QoL
+AXIOME_TOOLBOX=                               Axiome Toolbox
+ENABLED=                                      Enabled
 STOP_TIMER_WHEN_PAUSED=                       Freeze the timer while the game is paused
+
+CLEAR_MIDPOINT=                               Clear All Midpoints
+PLACE_MIDPOINT=                               Place Midpoint
