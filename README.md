@@ -1,6 +1,5 @@
-# Axiome's QoL
-
-A Celeste mod adding quality-of-life features primarily intended for speedrun practice
+# Axiome's Toolbox
+A Celeste mod adding features primarily intended for speedrun practice and labbing
 
 ## Freeze the timer when the game is paused
 
