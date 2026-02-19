@@ -1,29 +1,29 @@
 ﻿using System;
-using Celeste.Mod.AxiomeQoL.Menu;
+using Celeste.Mod.AxiomeToolbox.Menu;
 using FMOD.Studio;
 
-namespace Celeste.Mod.AxiomeQoL;
+namespace Celeste.Mod.AxiomeToolbox;
 
-public class AxiomeQoLModule : EverestModule {
-    public static AxiomeQoLModule Instance { get; private set; }
+public class AxiomeToolboxModule : EverestModule {
+    public static AxiomeToolboxModule Instance { get; private set; }
 
-    public override Type SettingsType => typeof(AxiomeQoLModuleSettings);
-    public static AxiomeQoLModuleSettings Settings => (AxiomeQoLModuleSettings) Instance._Settings;
+    public override Type SettingsType => typeof(AxiomeToolboxModuleSettings);
+    public static AxiomeToolboxModuleSettings Settings => (AxiomeToolboxModuleSettings) Instance._Settings;
 
-    public override Type SessionType => typeof(AxiomeQoLModuleSession);
-    public static AxiomeQoLModuleSession Session => (AxiomeQoLModuleSession) Instance._Session;
+    public override Type SessionType => typeof(AxiomeToolboxModuleSession);
+    public static AxiomeToolboxModuleSession Session => (AxiomeToolboxModuleSession) Instance._Session;
 
-    public override Type SaveDataType => typeof(AxiomeQoLModuleSaveData);
-    public static AxiomeQoLModuleSaveData SaveData => (AxiomeQoLModuleSaveData) Instance._SaveData;
+    public override Type SaveDataType => typeof(AxiomeToolboxModuleSaveData);
+    public static AxiomeToolboxModuleSaveData SaveData => (AxiomeToolboxModuleSaveData) Instance._SaveData;
 
-    public AxiomeQoLModule() {
+    public AxiomeToolboxModule() {
         Instance = this;
 #if DEBUG
         // debug builds use verbose logging
-        Logger.SetLogLevel(nameof(AxiomeQoLModule), LogLevel.Verbose);
+        Logger.SetLogLevel(nameof(AxiomeToolboxModule), LogLevel.Verbose);
 #else
         // release builds use info logging to reduce spam in log files
-        Logger.SetLogLevel(nameof(AxiomeQoLModule), LogLevel.Info);
+        Logger.SetLogLevel(nameof(AxiomeToolboxModule), LogLevel.Info);
 #endif
     }
 

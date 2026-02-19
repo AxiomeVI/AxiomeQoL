@@ -1,9 +1,9 @@
 using Monocle;
 
-namespace Celeste.Mod.AxiomeQoL.Menu;
+namespace Celeste.Mod.AxiomeToolbox.Menu;
 
 public static class ModMenuOptions {
-    private static AxiomeQoLModuleSettings _settings = AxiomeQoLModule.Settings;
+    private static AxiomeToolboxModuleSettings _settings = AxiomeToolboxModule.Settings;
 
     public static void CreateMenu(TextMenu menu)
     {     
@@ -13,7 +13,6 @@ public static class ModMenuOptions {
                 _settings.StopTimerWhenPaused = value;
                 if (!value && Engine.Scene is Level level) {
                     level.TimerStopped = false;
-                    Logger.Log(LogLevel.Info, "HERE MEY MOD", level.TimerStopped.ToString());
                 }
             }
         ));
