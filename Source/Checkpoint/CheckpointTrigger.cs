@@ -8,30 +8,26 @@ namespace Celeste.Mod.AxiomeToolbox.Checkpoint;
 public class CheckpointTrigger : Entity {
 
     private readonly Color beamColor;
-    private bool triggered = false;
+    private readonly CheckpointPlacementManager.AxiomeCheckpointData data;
     private float flash = 0f;
 
     private const float Width = 11f;
     private const float Height = 17f;
 
-    public CheckpointTrigger(Vector2 position, Color color) : base(position) {
+    public CheckpointTrigger(Color color, CheckpointPlacementManager.AxiomeCheckpointData data) : base(data.Position) {
         beamColor = color;
+        this.data = data;
 
         Collider = new Hitbox(Width, Height, -Width / 2f, -Height / 2f);
-        Depth = -10000;
-    }
-
-    public override void Added(Scene scene) {
-        base.Added(scene);
-        triggered = false;
+        Depth = -99;
     }
 
     public override void Update() {
         base.Update();
 
         Player player = CollideFirst<Player>();
-        if (player != null && !triggered) {
-            triggered = true;
+        if (player != null && !data.IsTriggered) {
+            data.IsTriggered = true;
             flash = 1f;
 
             RoomTimerManager.UpdateTimerState();
@@ -44,13 +40,13 @@ public class CheckpointTrigger : Entity {
     public override void Render() {
         base.Render();
 
-        float alpha = triggered ? 0.3f : 0.5f;
+        float alpha = data.IsTriggered ? 0.3f : 0.5f;
         alpha += flash * 0.6f;
 
         float x = Position.X - Width / 2f;
         float y = Position.Y - Height;
 
         Draw.Rect(x, y, Width, Height, beamColor * alpha);
-        Draw.HollowRect(x, y, Width, Height, beamColor * (triggered ? 0.6f : 1f));
+        Draw.HollowRect(x, y, Width, Height, beamColor * (data.IsTriggered ? 0.6f : 1f));
     }
 }

@@ -2,6 +2,9 @@
 using Celeste.Mod.AxiomeToolbox.Menu;
 using FMOD.Studio;
 using Celeste.Mod.AxiomeToolbox.Checkpoint;
+using MonoMod.ModInterop;
+using Celeste.Mod.AxiomeToolbox.Integration;
+using System.Collections.Generic;
 
 namespace Celeste.Mod.AxiomeToolbox;
 
@@ -16,6 +19,8 @@ public class AxiomeToolboxModule : EverestModule {
 
     public override Type SaveDataType => typeof(AxiomeToolboxModuleSaveData);
     public static AxiomeToolboxModuleSaveData SaveData => (AxiomeToolboxModuleSaveData) Instance._SaveData;
+
+    public object SaveLoadInstance = null;
 
     public AxiomeToolboxModule() {
         Instance = this;
@@ -32,12 +37,22 @@ public class AxiomeToolboxModule : EverestModule {
         On.Celeste.Level.Update += Level_OnUpdate;
         On.Celeste.Level.End    += OnLevelEnd;
         CheckpointPlacementManager.Load();
+        typeof(SaveLoadIntegration).ModInterop();
+        SaveLoadInstance = SaveLoadIntegration.RegisterSaveLoadAction(
+            null, 
+            OnLoadState, 
+            null, 
+            OnBeforeSaveState,
+            null,
+            null
+        );
     }
 
     public override void Unload() {
         On.Celeste.Level.Update -= Level_OnUpdate;
         On.Celeste.Level.End    -= OnLevelEnd;
         CheckpointPlacementManager.Unload();
+        SaveLoadIntegration.Unregister(SaveLoadInstance);
     }
 
     public override void CreateModMenuSection(TextMenu menu, bool inGame, EventInstance pauseSnapshot)
@@ -64,5 +79,13 @@ public class AxiomeToolboxModule : EverestModule {
     private void OnLevelEnd(On.Celeste.Level.orig_End orig, Level self) {
         orig(self);
         if (Settings.Enabled) CheckpointPlacementManager.ClearAll();
+    }
+
+    private static void OnLoadState(Dictionary<Type, Dictionary<string, object>> dictionary, Level level) {
+        if (Settings.Enabled) CheckpointPlacementManager.ResetAllTriggeredStates();
+    }
+
+    private static void OnBeforeSaveState(Level level) {
+        if (Settings.Enabled) CheckpointPlacementManager.ResetAllTriggeredStates();
     }
 }
